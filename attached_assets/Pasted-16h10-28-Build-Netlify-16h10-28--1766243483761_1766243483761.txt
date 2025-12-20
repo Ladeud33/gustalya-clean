@@ -1,0 +1,126 @@
+16h10:28 : Build Netlify 
+16h10:28 : ────────────────────────────────────────────────────────────────
+16h10:28 : 
+16h10:28 : ❯ Version
+16:10:28 : @netlify/build 35.5.7
+16h10:28 : 
+16h10:28 : ❯ Drapeaux
+16:10:28 : accountId : 67d422af00dd90362b5905c4
+16:10:28 : baseRelDir : true
+16:10:28 : buildId : 6946bc51f609a0f8a331c095
+16:10:28 : déploiement Id : 6946bc51f609a0f8a331c097
+16h10:28 : 
+16:10:28 : ❯ Annuaire actuel
+16:10:28 : /opt/build/dépôt
+16h10:28 : 
+16:10:28 : ❯ Fichier de configuration
+16:10:28 : /opt/build/repo/netlify.toml
+16h10:28 : 
+16:10:28 : ❯ Contexte
+16h10:28 : production
+16h10:28 : 
+16h10:28 : ❯ Installation des extensions
+16:10:28 : - néon
+16:10:38 : 
+16h10:38 : ❯ Chargement des extensions
+16:10:38 : - néon
+16h10:39 : 
+16:10:39 : Commande de compilation depuis l’application Netlify 
+16h10:39 : ────────────────────────────────────────────────────────────────
+16h10:39 :
+16:10:39 : build de course $ npm
+16:10:39 : > build rest-express@1.0.0
+16:10:39 : > tsx script/build.ts
+16h10h40 : Client en construction...
+16:10h40 : Vite v7.1.12 construction pour la production...
+16h10h40 : transformation...
+16:10:44 : /pattern.svg référencé dans /pattern.svg n’a pas résolu au moment de la compilation, il restera inchangé pour être résolu à l’exécution
+✓ 2121 modules transformés.
+16:10:44 : [plugin vite :reporter]
+16:10:44 : ( !) /opt/build/repo/node_modules/firebase/firestore/dist/esm/index.esm.js est importé dynamiquement par /opt/build/repo/client/src/lib/firebase.ts mais aussi importé statiquement par /opt/build/repo/client/src/components/MemoryCapsuleModal.jsx, /opt/build/repo/client/src/lib/firebase.ts, l’importation dynamique ne déplacera pas le module dans un autre morceau.
+16h10:44 : 
+16h10:44 : rendu des chunks...
+16:10:44 : [méta-images] aucun domaine de déploiement Replit trouvé, sautant les mises à jour des méta-tags
+16h10:44 : calcul de la taille gzip...
+16:10:44 : .. /dist/public/index.html  3,12 kB │ gzip : 1,03 kB
+16:10:44 : .. /dist/public/assets/index-ChEVA4Au.css  175,51 kB │ gzip : 24,94 kB
+16:10:44 : .. /dist/public/assets/index-CqmAQhWL.js 1 214,59 kB │ gzip : 327,44 kB
+16h10:44 : 
+16h10:44 : ( !) Certains blocs dépassent 500 kB après minification. Considérez :
+16:10:44 : - Utilisation de l’import() dynamique pour splitter le code de l’application
+16:10:44 : - Utilisez build.rollupOptions.output.manualChunks pour améliorer le chunking : https://rollupjs.org/configuration-options/#output-manualchunks
+16:10:44 : - Ajustez la limite de taille des morceaux pour cet avertissement via build.chunkSizeWarningLimit.
+16h10:44 : ✓ construit en 4,23s
+16h10:44 : construction du serveur...
+16:10:44 : dist/index.cjs 836.3kb
+16:10:44 : ⚡ Terminé en 39 ms
+16h10:44 :
+16:10:44 : (build.command terminé en 5,3 secondes)
+16h10:44 : 
+16h10:44 : Ensemble des fonctions 
+16h10:44 : ────────────────────────────────────────────────────────────────
+16h10:44 :
+16:10:44 : Emballage des fonctions depuis le répertoire netlify/functions :
+16h10:44 : - scan-recipe.js
+16:10:44 : - scan-url.js
+16h10:44 :
+16:10:45 : ✘ [ERREUR] Impossible de résoudre « @google/generative-ai »
+16:10:45 : netlify/functions/scan-recipe.js :1:39 :
+16:10:45 : 1 │ const { GoogleGenerativeAI } = require(« @google/generative-ai ») ;
+16h10:45 : ╵ ~~~~~~~~~~~~~~~~~~~~~~~
+16:10:45 : Vous pouvez marquer le chemin « @google/generative-ai » comme externe pour l’exclure du faisceau, ce qui supprimera cette erreur et laissera le chemin non résolu dans le faisceau. Vous pouvez également entourer cet appel « nécessite » d’un bloc try/catch pour gérer cette défaillance à l’exécution au lieu du bundle.
+16:10:45 : ✘ [ERREUR] Impossible de résoudre « @google/generative-ai »
+16:10:45 : netlify/functions/scan-url.js :1:39 :
+16:10:45 : 1 │ const { GoogleGenerativeAI } = require(« @google/generative-ai ») ;
+16h10:45 : ╵ ~~~~~~~~~~~~~~~~~~~~~~~
+16:10:45 : Vous pouvez marquer le chemin « @google/generative-ai » comme externe pour l’exclure du faisceau, ce qui supprimera cette erreur et laissera le chemin non résolu dans le faisceau. Vous pouvez également entourer cet appel « nécessite » d’un bloc try/catch pour gérer cette défaillance à l’exécution au lieu du bundle.
+16h10:45 : 
+16:10:45 : Erreur d’installation des dépendances 
+16h10:45 : ────────────────────────────────────────────────────────────────
+16h10:45 :
+16h10:45 : Message d’erreur
+16:10:45 : Une fonction Netlify utilise « @google/generative-ai » mais cette dépendance n’a pas encore été installée.
+16h10:45 :
+16h10:45 : Par défaut, les dépendances à l’intérieur du « package.json » d’une fonction Netlify ne sont pas automatiquement installées. 
+ Il existe plusieurs moyens de résoudre ce problème :
+16:10:45 : - Suppression du « package.json » de votre fonction et ajout des dépendances au « package.json » de premier niveau du projet à la place. C’est la solution la plus rapide et la plus sûre.
+16:10:45 : - Exécution de « npm install » ou « yarn » dans votre fonction Netlify dans votre commande de compilation.
+16:10:45 : - Ajout du plugin suivant à votre « netlify.toml » :
+16h10:45 :
+16:10:45 : [[plugins]]
+16:10:45 : package = « @netlify/plugin-functions-install-core »
+16h10:45 :
+16:10:45 : Échec de la compilation avec 1 erreur :
+16:10:45 : netlify/functions/scan-url.js :1:39 : ERREUR : Impossible de résoudre « @google/generative-ai »
+16h10:45 :
+16:10:45 : Configuration résolue
+16:10:45 : construction :
+16:10:45 : commandement : npm run build
+16:10:45 : commandOrigine : ui
+16h10:45 : environnement :
+16h10:45 : - GEMINI_API_KEY
+16h10:45 : - VITE_FIREBASE_API_KEY
+16h10:45 : - VITE_FIREBASE_APP_ID
+16h10:45 : - VITE_FIREBASE_PROJECT_ID
+16h10:45 : - NODE_VERSION
+16:10:45 : publication : /opt/build/repo/dist/public
+16:10:45 : publishOrigin : config
+16h10:45 : fonctions :
+16h10:45 : « * » :
+16h10:45 : node_bundler : Esbuild
+16:10:45 : functionsDirectory : /opt/build/repo/netlify/functions
+16:10:45 : redirections :
+16:10:45 : - de : /api/recipes/scan
+16:10:45 : statut : 200
+16:10:45 : vers : /.netlify/functions/scan-recipe
+16:10:45 : - de : /api/recipes/scan-url
+16:10:45 : statut : 200
+16:10:45 : vers : /.netlify/functions/scan-url
+16:10:45 : - de : /*
+ statut : 200
+ vers : /index.html
+ redirections Origin : config
+16:10:45 : Échec de la compilation à cause d’une erreur utilisateur : Le script de compilation a renvoyé un code de sortie non nul : 2
+16:10:46 : Échec lors de l’étape « chantier de construction » : Le script de construction a renvoyé un code de sortie non nul : 2 (https://ntl.fyi/exit-code-2)
+16:10:46 : Échec de la construction : Échec du site
+16:10:46 : Fin de traitement de la demande de compilation en 35,48s
