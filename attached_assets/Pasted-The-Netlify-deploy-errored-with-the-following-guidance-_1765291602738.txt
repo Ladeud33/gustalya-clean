@@ -1,0 +1,103 @@
+The Netlify deploy errored, with the following guidance provided:
+
+Diagnosis
+- Relevant log lines: the build runs "npm install" [line 49](#L49) and then npm fails with ENOENT because it can't open /opt/build/repo/package.json [lines 51–55](#L51-L55). Netlify's resolved config shows the publish directory is the repo root (/opt/build/repo) [line 79](#L79).
+- Error type and cause: npm ENOENT — package.json not found at the repository root. Netlify is running npm in the repo root but there is no package.json there (either it wasn't committed or the project's package.json lives in a subdirectory).
+
+Solution
+1) Verify package.json exists where Netlify expects it
+- Open your repo in GitHub and confirm package.json is committed at the repository root:
+  https://github.com/Ladeud33/gustalya-app/tree/main
+- If you intended to have a root package.json, add it and commit:
+  - create/modify package.json (npm init or copy from local), commit and push.
+
+2) If your project is in a subdirectory (common patterns: frontend, client, app)
+- Option A — set a Base directory in Netlify (recommended)
+  - In Netlify UI > Site settings > Build & deploy > Continuous Deployment > Build settings, set "Base directory" to the folder that contains package.json (for example "frontend" or "client").
+  - Set the Build command to something that builds the site, e.g.:
+    - npm install && npm run build
+    - or simply npm run build (Netlify runs install automatically in many setups)
+  - Set the Publish directory to the build output of that subproject (for example "dist", "build" or "frontend/dist" depending on framework).
+
+- Option B — change the build command to run inside the subdirectory
+  - Replace the Netlify build command with a one-liner that moves into your subfolder. Example (if package.json is in "frontend" and the build output goes to frontend/dist):
+```bash
+cd frontend && npm install && npm run build
+```
+  - Then set Publish directory to frontend/dist (or whatever your project outputs).
+
+- Example netlify.toml you can commit instead of changing UI (replace "frontend" and "frontend/dist" with your actual paths):
+```toml
+[build]
+  base = "frontend"
+  command = "npm install && npm run build"
+  publish = "frontend/dist"
+```
+
+3) If package.json is intentionally at root but missing from the repo
+- Create it (npm init), ensure it has the correct scripts (e.g. "build": "vite build" or "build": "react-scripts build"), commit and push.
+
+Notes
+- The root cause is confirmed by the log lines showing npm couldn't find package.json [lines 51–55](#L51-L55) while Netlify ran npm in the repo root [line 49](#L49) and configured publish as the repo root [line 79](#L79).
+- If you need help identifying where package.json lives in your repo, point me to the subdirectory structure and I’ll give the exact settings to use.
+
+The relevant error logs are:
+
+Line 0: build-image version: e939f44b001caa6487d455733296841972e73575 (noble)
+Line 1: buildbot version: 6500ef2da7c345197096dc6f44fc4a0c3324578a
+Line 2: Fetching cached dependencies
+Line 3: Failed to fetch cache, continuing with build
+Line 4: Starting to prepare the repo for build
+Line 5: No cached dependencies found. Cloning fresh repo
+Line 6: git clone --filter=blob:none https://github.com/Ladeud33/gustalya-app
+Line 7: Preparing Git Reference refs/heads/main
+Line 8: Starting to install dependencies
+Line 9: v22.21.1 is already installed.
+Line 10: Now using node v22.21.1 (npm v10.9.4)
+Line 11: Enabling Node.js Corepack
+Line 12: Started restoring cached build plugins
+Line 13: Finished restoring cached build plugins
+Line 40: [36m[1m❯ Installing extensions[22m[39m
+Line 41:    - neon
+Line 42: [36m[1m​[22m[39m
+Line 43: [36m[1m❯ Loading extensions[22m[39m
+Line 44:    - neon
+Line 45: [96m[1m​[22m[39m
+Line 46: [96m[1mBuild command from Netlify app                                [22m[39m
+Line 47: [96m[1m────────────────────────────────────────────────────────────────[22m[39m
+Line 48: ​
+Line 49: [36m$ npm install[39m
+Line 50: Failed during stage 'building site': Build script returned non-zero exit code: 2
+Line 51: npm error code ENOENT
+Line 52: npm error syscall open
+Line 53: npm error path /opt/build/repo/package.json
+Line 54: npm error errno -2
+Line 55: npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/opt/build/repo/package.json'
+Line 56: npm error enoent This is related to npm not being able to find a file.
+Line 57: npm error enoent
+Line 58: npm error A complete log of this run can be found in: /opt/buildhome/.npm/_logs/2025-12-09T14_45_04_895Z-debug-0.log
+Line 59: [91m[1m​[22m[39m
+Line 60: [91m[1m"build.command" failed                                        [22m[39m
+Line 61: [91m[1m────────────────────────────────────────────────────────────────[22m[39m
+Line 62: ​
+Line 63:   [31m[1mError message[22m[39m
+Line 64:   Command failed with exit code 254: npm install
+Line 65: ​
+Line 66:   [31m[1mError location[22m[39m
+Line 67:   In Build command from Netlify app:
+Line 68:   npm install
+Line 69: ​
+Line 70:   [31m[1mResolved config[22m[39m
+Line 71:   build:
+Line 72:     command: npm install
+Line 73:     commandOrigin: ui
+Line 74:     environment:
+Line 75:       - GEMINI_API_KEY
+Line 76:       - VITE_FIREBASE_API_KEY
+Line 77:       - VITE_FIREBASE_APP_ID
+Line 78:       - VITE_FIREBASE_PROJECT_ID
+Line 79:     publish: /opt/build/repo
+Line 80:     publishOrigin: ui
+Line 81: Build failed due to a user error: Build script returned non-zero exit code: 2
+Line 82: Failing build: Failed to build site
+Line 83: Finished processing build request in 19.5s

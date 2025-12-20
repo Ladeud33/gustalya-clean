@@ -1,0 +1,14 @@
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+
+# Sensitive files - never commit
+**/serviceAccountKey*.json
+**/*private-key*.txt
+**/*service-account*.txt
+**/*service-account*.json
+*.pem
+*.key

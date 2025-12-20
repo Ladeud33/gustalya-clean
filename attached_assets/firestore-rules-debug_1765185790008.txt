@@ -1,0 +1,19 @@
+// RÈGLE TEMPORAIRE TRÈS PERMISSIVE POUR DÉBOGUER
+// À appliquer dans la console Firebase pour tester
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Règle temporaire très permissive pour tester
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+
+// INSTRUCTIONS :
+// 1. Copier cette règle dans votre console Firebase (Firestore > Rules)
+// 2. Cliquer sur "Publish"
+// 3. Tester la suppression d'une recette
+// 4. Si ça fonctionne, le problème vient des règles
+// 5. Si ça ne fonctionne toujours pas, le problème est ailleurs 

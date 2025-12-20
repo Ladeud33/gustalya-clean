@@ -1,0 +1,3 @@
+/api/recipes/scan    /.netlify/functions/scan-recipe    200
+/api/recipes/scan-url    /.netlify/functions/scan-url    200
+/*    /index.html   200

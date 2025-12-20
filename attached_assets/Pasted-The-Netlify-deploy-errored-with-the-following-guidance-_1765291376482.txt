@@ -1,0 +1,58 @@
+The Netlify deploy errored, with the following guidance provided:
+
+Diagnosis
+- The provided log excerpt stops before any failing build step; there are no error lines in the snippet you gave. The excerpt only shows cloning and Node being selected: see [line 9](#L9) and [line 10](#L10). Because the actual error output (npm/yarn install or the build command) is not included, I cannot identify the precise failing error or stack trace from these lines alone.
+
+Solution (what to do next + common fixes to try)
+1) Provide the failing lines
+   - Please paste the rest of the build log starting from the dependency install/build steps (the lines after [line 13](#L13)). The actual error message will usually include "ERR!", "error", a stack trace, or the word "failed" — those lines are required to diagnose the exact cause.
+
+2) Quick checks to run now (likely causes and fixes)
+   - Check Node version compatibility:
+     - Your build is using Node v22.21.1 ([line 9](#L9) / [line 10](#L10)). Some toolchains or dependencies require older Node versions (commonly v16 or v18). If you see runtime/compilation errors in the full log, try pinning Node to v18 or v16.
+     - To pin Node, add a .nvmrc file at the repo root with the desired version, e.g.:
+```text
+18
+```
+     - Or set the Node version in netlify.toml:
+```toml
+[build.environment]
+  NODE_VERSION = "18"
+```
+     - Netlify docs: https://docs.netlify.com/configure-builds/manage-dependencies/#node-js-and-javascript
+
+   - Verify package.json and lockfile are committed
+     - If the error mentions a missing module/package, first verify that the package is listed in package.json and that package.json (and package-lock.json / pnpm-lock.yaml / yarn.lock) were committed to the repo. If a package or a file is missing from the repo, add/commit it and redeploy.
+
+   - If the error mentions an external file or package required by your bundler (e.g., Rollup/Vite external)
+     - First verify the package/file is present in package.json or the file was committed to the repo.
+     - Only after confirming it's present should you add it to build.rollupOptions.external (or equivalent) in your bundler config.
+
+3) How to reproduce locally
+   - On your machine, switch to the same Node version Netlify used (or the one you plan to force), e.g. with nvm:
+```bash
+nvm install 18
+nvm use 18
+npm ci   # or npm install
+npm run build
+```
+   - Capture any errors and paste them here if they differ from or match the Netlify failure.
+
+If you paste the remainder of the build log (the error section), I will isolate the exact failing lines, identify the error type and cause, and provide a targeted fix.
+
+The relevant error logs are:
+
+Line 0: build-image version: e939f44b001caa6487d455733296841972e73575 (noble)
+Line 1: buildbot version: 6500ef2da7c345197096dc6f44fc4a0c3324578a
+Line 2: Fetching cached dependencies
+Line 3: Failed to fetch cache, continuing with build
+Line 4: Starting to prepare the repo for build
+Line 5: No cached dependencies found. Cloning fresh repo
+Line 6: git clone --filter=blob:none https://github.com/Ladeud33/gustalya-app
+Line 7: Preparing Git Reference refs/heads/main
+Line 8: Starting to install dependencies
+Line 9: v22.21.1 is already installed.
+Line 10: Now using node v22.21.1 (npm v10.9.4)
+Line 11: Enabling Node.js Corepack
+Line 12: Started restoring cached build plugins
+Line 13: Finished restoring cached build plugins

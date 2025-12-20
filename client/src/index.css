@@ -1,0 +1,472 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Gustalya Brand Colors */
+  --color-gustalya-sage: #8A9A5B;
+  --color-gustalya-sage-light: #a8b87d;
+  --color-gustalya-sage-dark: #6b7a45;
+  --color-gustalya-brown: #4E2E1E;
+  --color-gustalya-brown-light: #7a5a48;
+  --color-gustalya-cream: #fcfbf7;
+  --color-gustalya-warm: #f5f0e6;
+  --color-gustalya-gold: #d4a853;
+
+  /* Cooking Category Colors */
+  --color-cooking-meat: #dc2626;
+  --color-cooking-fish: #0ea5e9;
+  --color-cooking-vegetable: #16a34a;
+  --color-cooking-pasta: #d97706;
+  --color-cooking-rice: #a855f7;
+  --color-cooking-dessert: #ec4899;
+  --color-cooking-drink: #06b6d4;
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+
+  /* Radius */
+  --radius: 0.625rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-glow: 0 0 20px rgb(138 154 91 / 0.3);
+  --shadow-glow-lg: 0 0 40px rgb(138 154 91 / 0.4);
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-fade-up: fade-up 0.5s ease-out;
+  --animate-fade-down: fade-down 0.5s ease-out;
+  --animate-scale-in: scale-in 0.3s ease-out;
+  --animate-slide-up: slide-up 0.4s ease-out;
+  --animate-slide-down: slide-down 0.4s ease-out;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-soft: pulse-soft 2s ease-in-out infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-wiggle: wiggle 0.5s ease-in-out;
+  --animate-bounce-soft: bounce-soft 2s ease-in-out infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-down {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes slide-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes slide-down {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+  }
+  @keyframes bounce-soft {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  @keyframes timer-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgb(138 154 91 / 0.4); }
+    50% { box-shadow: 0 0 0 10px rgb(138 154 91 / 0); }
+  }
+}
+
+/* Light Theme */
+:root {
+  --background: 40 33% 98%;
+  --foreground: 24 10% 20%;
+  
+  --card: 0 0% 100%;
+  --card-foreground: 24 10% 20%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 24 10% 20%;
+  
+  --primary: 78 26% 48%;
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 40 30% 94%;
+  --secondary-foreground: 24 10% 30%;
+  
+  --muted: 40 20% 94%;
+  --muted-foreground: 24 10% 45%;
+  
+  --accent: 40 30% 92%;
+  --accent-foreground: 24 10% 25%;
+  
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 40 20% 88%;
+  --input: 40 20% 88%;
+  --ring: 78 26% 48%;
+  
+  --radius: 0.625rem;
+
+  --chart-1: 78 40% 50%;
+  --chart-2: 24 60% 35%;
+  --chart-3: 45 80% 55%;
+  --chart-4: 120 35% 45%;
+  --chart-5: 200 50% 50%;
+}
+
+/* Dark Theme */
+.dark {
+  --background: 24 10% 10%;
+  --foreground: 40 20% 95%;
+  
+  --card: 24 10% 12%;
+  --card-foreground: 40 20% 95%;
+  
+  --popover: 24 10% 12%;
+  --popover-foreground: 40 20% 95%;
+  
+  --primary: 78 35% 55%;
+  --primary-foreground: 24 10% 10%;
+  
+  --secondary: 24 10% 18%;
+  --secondary-foreground: 40 20% 90%;
+  
+  --muted: 24 10% 18%;
+  --muted-foreground: 40 15% 60%;
+  
+  --accent: 24 10% 20%;
+  --accent-foreground: 40 20% 95%;
+  
+  --destructive: 0 62% 50%;
+  --destructive-foreground: 0 0% 100%;
+  
+  --border: 24 10% 20%;
+  --input: 24 10% 20%;
+  --ring: 78 35% 55%;
+
+  --chart-1: 78 45% 55%;
+  --chart-2: 35 70% 50%;
+  --chart-3: 45 85% 60%;
+  --chart-4: 140 40% 50%;
+  --chart-5: 210 55% 55%;
+}
+
+/* Utility Classes */
+@utility glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@utility glass-dark {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@utility gradient-gustalya {
+  background: linear-gradient(135deg, #8A9A5B 0%, #6b7a45 50%, #4E2E1E 100%);
+}
+
+@utility gradient-gustalya-soft {
+  background: linear-gradient(135deg, rgba(138, 154, 91, 0.1) 0%, rgba(78, 46, 30, 0.05) 100%);
+}
+
+@utility gradient-hero {
+  background: linear-gradient(135deg, #8A9A5B 0%, #7a8a4b 25%, #5a6a35 50%, #4E2E1E 100%);
+}
+
+@utility gradient-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 100%);
+}
+
+@utility text-gradient-gustalya {
+  background: linear-gradient(135deg, #8A9A5B 0%, #4E2E1E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility shadow-gustalya {
+  box-shadow: 0 4px 20px -2px rgba(138, 154, 91, 0.25);
+}
+
+@utility shadow-gustalya-lg {
+  box-shadow: 0 10px 40px -4px rgba(138, 154, 91, 0.3);
+}
+
+@utility shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+
+/* Base Styles */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    @apply transition-colors duration-300;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+  
+  ::selection {
+    background: rgba(138, 154, 91, 0.3);
+  }
+  
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(138, 154, 91, 0.3);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(138, 154, 91, 0.5);
+  }
+
+  input, textarea, select {
+    @apply transition-all duration-200;
+  }
+  
+  input:focus, textarea:focus, select:focus {
+    @apply outline-none ring-2 ring-primary/30;
+  }
+  
+  button {
+    @apply transition-all duration-200 active:scale-[0.98];
+  }
+  
+  a {
+    @apply transition-colors duration-200;
+  }
+  
+  img {
+    @apply max-w-full h-auto;
+  }
+}
+
+/* Animation Classes */
+@layer utilities {
+  .animate-in {
+    animation: fade-up 0.5s ease-out forwards;
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+  
+  .animate-scale-in {
+    animation: scale-in 0.3s ease-out forwards;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-wiggle {
+    animation: wiggle 0.5s ease-in-out;
+  }
+  
+  .animate-timer-pulse {
+    animation: timer-pulse 2s ease-in-out infinite;
+  }
+  
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  
+  .stagger > * {
+    opacity: 0;
+    animation: fade-up 0.5s ease-out forwards;
+  }
+  .stagger > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger > *:nth-child(2) { animation-delay: 50ms; }
+  .stagger > *:nth-child(3) { animation-delay: 100ms; }
+  .stagger > *:nth-child(4) { animation-delay: 150ms; }
+  .stagger > *:nth-child(5) { animation-delay: 200ms; }
+  .stagger > *:nth-child(6) { animation-delay: 250ms; }
+  .stagger > *:nth-child(7) { animation-delay: 300ms; }
+  .stagger > *:nth-child(8) { animation-delay: 350ms; }
+  .stagger > *:nth-child(9) { animation-delay: 400ms; }
+  .stagger > *:nth-child(10) { animation-delay: 450ms; }
+}
+
+/* Card Styles */
+.card-hover {
+  @apply transition-all duration-300 ease-out;
+}
+
+.card-hover:hover {
+  @apply -translate-y-1 shadow-lg;
+}
+
+/* Recipe Card Image Overlay */
+.recipe-card-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, transparent 100%);
+}
+
+/* Button Glow Effect */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.btn-glow:hover::before {
+  transform: translateX(100%);
+}
+
+/* Mobile Touch Feedback */
+@media (hover: none) {
+  .touch-feedback {
+    -webkit-tap-highlight-color: rgba(138, 154, 91, 0.1);
+  }
+  
+  .touch-feedback:active {
+    background-color: rgba(138, 154, 91, 0.1);
+  }
+}
+
+/* Safe Area for Mobile */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+/* Timer Ring Animation */
+.timer-ring {
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+.timer-ring circle {
+  transition: stroke-dashoffset 1s linear;
+}
+
+/* Loading Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, 
+    hsl(var(--muted)) 0%, 
+    hsl(var(--muted) / 0.5) 50%, 
+    hsl(var(--muted)) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Focus Ring */
+.focus-ring {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+}
+
+/* No Scrollbar */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Global Focus Visible Styles */
+*:focus-visible {
+  outline: 3px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
