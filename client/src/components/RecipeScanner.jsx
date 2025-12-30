@@ -4,6 +4,17 @@ import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import imageCompression from 'browser-image-compression';
 
+// Detect if we're on Netlify and use direct function URLs
+const getApiUrl = (endpoint) => {
+  const isNetlify = window.location.hostname.includes('netlify.app') || 
+                    window.location.hostname === 'gustalya.app';
+  if (isNetlify) {
+    if (endpoint === 'scan') return '/.netlify/functions/scan-recipe';
+    if (endpoint === 'scan-url') return '/.netlify/functions/scan-url';
+  }
+  return `/api/recipes/${endpoint}`;
+};
+
 const compressImage = async (dataUrl, mimeType) => {
   try {
     const response = await fetch(dataUrl);
@@ -136,7 +147,7 @@ export function RecipeScanner({ isOpen, onClose, onRecipeExtracted }) {
       // Compress image before sending
       const compressedImageData = await compressImage(imageData, imageMimeType);
       
-      const response = await fetch('/api/recipes/scan', {
+      const response = await fetch(getApiUrl('scan'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -187,7 +198,7 @@ export function RecipeScanner({ isOpen, onClose, onRecipeExtracted }) {
     setError(null);
 
     try {
-      const response = await fetch('/api/recipes/scan-url', {
+      const response = await fetch(getApiUrl('scan-url'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: urlInput.trim() })
