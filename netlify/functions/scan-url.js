@@ -72,7 +72,7 @@ exports.handler = async (event) => {
     const truncatedHtml = html.substring(0, 50000);
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const prompt = `Analyze this HTML content from a recipe webpage and extract the recipe information in JSON format:
 {
