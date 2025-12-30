@@ -1,24 +1,27 @@
 [build]
   publish = "dist/public"
   functions = "netlify/functions"
+  command = "npm run build"
 
 [build.environment]
   NODE_VERSION = "20"
+
+[functions]
+  node_bundler = "esbuild"
 
 [[redirects]]
   from = "/api/recipes/scan"
   to = "/.netlify/functions/scan-recipe"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/api/recipes/scan-url"
   to = "/.netlify/functions/scan-url"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[functions]
-  node_bundler = "esbuild"
