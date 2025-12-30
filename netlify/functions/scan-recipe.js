@@ -1,9 +1,24 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS'
+};
+
 exports.handler = async (event) => {
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: corsHeaders,
+      body: ''
+    };
+  }
+
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
+      headers: corsHeaders,
       body: JSON.stringify({ error: 'Method not allowed' })
     };
   }
@@ -12,6 +27,7 @@ exports.handler = async (event) => {
   if (!apiKey) {
     return {
       statusCode: 500,
+      headers: corsHeaders,
       body: JSON.stringify({ error: 'GEMINI_API_KEY not configured' })
     };
   }
@@ -22,6 +38,7 @@ exports.handler = async (event) => {
     if (!imageData) {
       return {
         statusCode: 400,
+        headers: corsHeaders,
         body: JSON.stringify({ error: 'Image data required' })
       };
     }
@@ -67,6 +84,7 @@ Return ONLY the JSON object, no additional text.`;
     if (!jsonMatch) {
       return {
         statusCode: 500,
+        headers: corsHeaders,
         body: JSON.stringify({ error: 'Failed to parse recipe data' })
       };
     }
@@ -77,7 +95,7 @@ Return ONLY the JSON object, no additional text.`;
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        ...corsHeaders
       },
       body: JSON.stringify(recipeData)
     };
@@ -85,6 +103,7 @@ Return ONLY the JSON object, no additional text.`;
     console.error('Scan error:', error);
     return {
       statusCode: 500,
+      headers: corsHeaders,
       body: JSON.stringify({ error: error.message || 'Failed to analyze image' })
     };
   }
